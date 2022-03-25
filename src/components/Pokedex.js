@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { isPokemonFavoriteByIdType, pokemonType } from '../types';
-import Button from './Button';
-import Pokemon from './Pokemon';
-import './pokedex.css';
+import { isPokemonFavoriteByIdType, pokemonType } from "../types";
+import Button from "./Button";
+import Pokemon from "./Pokemon";
+import "./pokedex.css";
 
 class Pokedex extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pokemonIndex: 0, filteredType: 'all' };
+    this.state = { pokemonIndex: 0, filteredType: "all" };
   }
 
   filterPokemons(filteredType) {
@@ -17,9 +17,9 @@ class Pokedex extends React.Component {
   }
 
   nextPokemon(numberOfPokemons) {
-    this.setState((state) => (
-      { pokemonIndex: (state.pokemonIndex + 1) % numberOfPokemons }
-    ));
+    this.setState((state) => ({
+      pokemonIndex: (state.pokemonIndex + 1) % numberOfPokemons,
+    }));
   }
 
   fetchFilteredPokemons() {
@@ -27,7 +27,7 @@ class Pokedex extends React.Component {
     const { filteredType } = this.state;
 
     return pokemons.filter((pokemon) => {
-      if (filteredType === 'all') return true;
+      if (filteredType === "all") return true;
       return pokemon.type === filteredType;
     });
   }
@@ -35,7 +35,9 @@ class Pokedex extends React.Component {
   fetchPokemonTypes() {
     const { pokemons } = this.props;
 
-    return [...new Set(pokemons.reduce((types, { type }) => [...types, type], []))];
+    return [
+      ...new Set(pokemons.reduce((types, { type }) => [...types, type], [])),
+    ];
   }
 
   renderPokemonButtonsPanel() {
@@ -44,7 +46,7 @@ class Pokedex extends React.Component {
     return (
       <div className="pokedex-buttons-panel">
         <Button
-          onClick={() => this.filterPokemons('all')}
+          onClick={() => this.filterPokemons("all")}
           className="filter-button"
         >
           All
